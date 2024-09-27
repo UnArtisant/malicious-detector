@@ -4,6 +4,21 @@ def file_to_str(file):
         txt = line.replace(",", "")
     return txt
 
+def build_suffix(text): #for the last part
+    n = len(text)
+    suffixes = []
+    for i in range(n):
+        suffixes.append((text[i:], i))
+    suffixes.sort()
+
+    suffixes_index = []
+    for suffix in suffixes:
+        suffixes_index.append(suffix[1])
+    return suffixes_index
+
+#def build_lcp(text, suffixArray):
+
+
 
 def build_lps(pattern):
     lps = [0] * len(pattern)
@@ -21,6 +36,8 @@ def build_lps(pattern):
                 lps[i] = 0
                 i += 1
     return lps
+
+#def find_longest_common_substring(text1, text2):
 
 
 def kmp_search(pattern, text):
@@ -43,7 +60,6 @@ def kmp_search(pattern, text):
             else:
                 i += 1
     return count
-
 
 def main():
     malicious_txt = ["transmission1.txt", "transmission2.txt"]
