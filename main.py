@@ -42,16 +42,17 @@ def build_lps(pattern):
 
 def kmp_search(pattern, text):
     lps = build_lps(pattern)
+    n = len(text)  # len for the text
     i = 0  # index for text
     j = 0  # index for pattern
-    count = 0
-    while i < len(text):
+    result = []
+    while i < n:
         if pattern[j] == text[i]:
             i += 1
             j += 1
 
         if j == len(pattern):  # full match found
-            count += 1
+            result.append(i)
             j = lps[j - 1]  # reset j to check for overlapping matches
 
         elif i < len(text) and pattern[j] != text[i]:
@@ -59,23 +60,28 @@ def kmp_search(pattern, text):
                 j = lps[j - 1]
             else:
                 i += 1
-    return count
+    return result
 
 def main():
     malicious_txt = ["transmission1.txt", "transmission2.txt"]
-    files_txt = ["mcode2.txt", "mcode1.txt", "mcode3.txt"]
+    files_txt = ["mcode1.txt", "mcode2.txt", "mcode3.txt"]
 
     for malicious in malicious_txt:
-        size_malicious = len(malicious)
         for file in files_txt:
-            size = 0
-            total = len(files_txt)
             malicious_code = file_to_str(malicious)
             txt = file_to_str(file)
-            size += kmp_search(malicious_code, txt)
-            size += kmp_search(malicious_code[::1], txt)
-            percentage = round(size_malicious / total, 2)
-            print(f"total malicious code : {percentage}%, number of occurence of malicous code : {size}")
+            occurrences = []
+            occurrences += kmp_search(malicious_code, txt)
+            occurrences += kmp_search(malicious_code[::1], txt)
+            if len(occurrences) > 0:
+                print(f"True : the file {file} contains the code ({malicious_code}) contained in the file {malicious} ")
+            else:
+                print(
+                    f"False : the file {file} doesn't contains the code ({malicious_code}) contained in the file {malicious} ")
+            for occurrence in occurrences:
+                print(
+                    f"startPosition: {occurrence}, endPosition: {occurrence + len(malicious_code)} (for {file} file) ")
+            print("\n")
 
 
 if __name__ == '__main__':
