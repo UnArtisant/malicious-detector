@@ -4,7 +4,7 @@ def file_to_str(file):
         txt = line.replace(",", "")
     return txt
 
-def build_suffix(text): #for the last part
+def build_suffix(text): #step 3
     n = len(text)
     suffixes = []
     for i in range(n):
@@ -55,14 +55,14 @@ def build_lcp(text, suffixArray): #step 3
         lcp[i] = z_values[len(suffix_i) + 1]
     return lcp
 
-def longest_common_substring(text1, text2):
+def longest_common_substring(text1, text2): #step 3
     text_concat = text1 + "#" + text2 + "$"
     suffix_arr = build_suffix(text_concat)
     lcp = build_lcp(text_concat, suffix_arr)
 
     max_len = 0
     position = 0
-    n = len(text1) #lenght from text 1
+    n = len(text1) #length from text 1
 
     for i in range(1, len(lcp)):
         if(suffix_arr[i]< n) != (suffix_arr[i - 1] < n):
