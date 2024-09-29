@@ -16,9 +16,62 @@ def build_suffix(text): #for the last part
         suffixes_index.append(suffix[1])
     return suffixes_index
 
-#def build_lcp(text, suffixArray):
+def build_lcp(text, suffixArray): #step 3
+    n = len(text)
+    lcp = [0]*n
 
+    def z_function(string):
+        n = len(string)
+        z_list = [0] * n
+        l = 0
+        r = 0
+        k = 0
+        for i in range(1,n):
+            if i > r: #normal case
+                l = i
+                r = i
+                while (r < n and string[r-l] == string[r]):
+                    r+=1
+                z_list[i] = r-l
+                r-=1 #goes back one because that last one was false
+            elif i <= r:#when the i is within the limits of l -> r  (possibility to reuse the velue)
+                k = i - l
+                if z_list[k] < r - i + 1: #means that the vale is reusable because all the others coincide
+                    z_list[i] = z_list[k] #reuse the value
+                else: #make the process again 
+                    l = i
+                    while (r < n and string[r-l] == string[r]):
+                        r+=1
+                    z_list[i] = r-l
+                    r-=1
+        return z_list
+    
+    for i in range(1, n):
+        suffix_i = text[suffixArray[i]:]
+        suffix_j = text[suffixArray[i-1]:]
 
+        suffixI_J = suffix_i + '$' + suffix_j
+        z_values = z_function(suffixI_J)
+        lcp[i] = z_values[len(suffix_i) + 1]
+    return lcp
+
+def longest_common_substring(text1, text2):
+    text_concat = text1 + "#" + text2 + "$"
+    suffix_arr = build_suffix(text_concat)
+    lcp = build_lcp(text_concat, suffix_arr)
+
+    max_len = 0
+    position = 0
+    n = len(text1) #lenght from text 1
+
+    for i in range(1, len(lcp)):
+        if(suffix_arr[i]< n) != (suffix_arr[i - 1] < n):
+            if lcp[i] > max_len:
+                max_len = lcp[i]
+                position = suffix_arr[i]
+    return text_concat[position:position + max_len]
+
+        
 
 def build_lps(pattern):
     lps = [0] * len(pattern)
@@ -36,9 +89,6 @@ def build_lps(pattern):
                 lps[i] = 0
                 i += 1
     return lps
-
-#def find_longest_common_substring(text1, text2):
-
 
 def kmp_search(pattern, text):
     lps = build_lps(pattern)
