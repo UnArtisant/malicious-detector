@@ -127,7 +127,6 @@ def main():
 
     print(longest_common_substring(transmission1, transmission2))
 
-    '''
     for malicious in malicious_txt:
         for file in files_txt:
             malicious_code = file_to_str(malicious)
@@ -144,7 +143,6 @@ def main():
                 print(
                     f"startPosition: {occurrence}, endPosition: {occurrence + len(malicious_code)} (for {file} file) ")
             print("\n")
-'''
 
 
 if __name__ == '__main__':
