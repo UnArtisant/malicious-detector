@@ -1,3 +1,9 @@
+'''
+Jorge Rodrigo Colín Rubio           | A01662960
+Raphaël Marc Joseph Barriet	 	    | A01763686
+Nicole Kapellmann Lepine		    | A01664563
+'''
+
 def file_to_str(file):
     with open(file, 'r') as f:
         line = f.readline()
@@ -116,6 +122,12 @@ def main():
     malicious_txt = ["transmission1.txt", "transmission2.txt"]
     files_txt = ["mcode1.txt", "mcode2.txt", "mcode3.txt"]
 
+    transmission1 = file_to_str("mcode2.txt")
+    transmission2 = file_to_str("mcode3.txt")
+
+    print(longest_common_substring(transmission1, transmission2))
+
+    '''
     for malicious in malicious_txt:
         for file in files_txt:
             malicious_code = file_to_str(malicious)
@@ -132,6 +144,7 @@ def main():
                 print(
                     f"startPosition: {occurrence}, endPosition: {occurrence + len(malicious_code)} (for {file} file) ")
             print("\n")
+'''
 
 
 if __name__ == '__main__':
