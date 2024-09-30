@@ -122,8 +122,8 @@ def main():
     malicious_txt = ["transmission1.txt", "transmission2.txt"]
     files_txt = ["mcode1.txt", "mcode2.txt", "mcode3.txt"]
 
-    transmission1 = file_to_str("mcode2.txt")
-    transmission2 = file_to_str("mcode3.txt")
+    transmission1 = file_to_str("transmission1.txt")
+    transmission2 = file_to_str("transmission2.txt")
 
     print(longest_common_substring(transmission1, transmission2))
 
