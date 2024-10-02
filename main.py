@@ -134,7 +134,6 @@ def main():
         subset1_t1 = transmission1[counter:counter + subset_size]  # Subset from transmission1
         subset2_t2 = transmission2[counter:counter + subset_size]  # Subset from transmission2
         
-        # Print longest common substring for the current chunk
         print(f"Longest common substring (chars {counter} to {counter + subset_size}): " + 
               longest_common_substring(subset1_t1, subset2_t2) + "\n")
         counter += subset_size
