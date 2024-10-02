@@ -77,8 +77,6 @@ def longest_common_substring(text1, text2): #step 3
                 position = suffix_arr[i]
     return text_concat[position:position + max_len]
 
-        
-
 def build_lps(pattern):
     lps = [0] * len(pattern)
     length = 0
@@ -125,7 +123,21 @@ def main():
     transmission1 = file_to_str("transmission1.txt")
     transmission2 = file_to_str("transmission2.txt")
 
-    print(longest_common_substring(transmission1, transmission2))
+    len_t1 = len(transmission1)
+    len_t2 = len(transmission2)
+    
+    subset_size = 1000
+    counter = 0
+
+    # Loop through both transmission texts in chunks of 1000
+    while counter < len_t1 and counter < len_t2:
+        subset1_t1 = transmission1[counter:counter + subset_size]  # Subset from transmission1
+        subset2_t2 = transmission2[counter:counter + subset_size]  # Subset from transmission2
+        
+        # Print longest common substring for the current chunk
+        print(f"Longest common substring (chars {counter} to {counter + subset_size}): " + 
+              longest_common_substring(subset1_t1, subset2_t2) + "\n")
+        counter += subset_size
 
     for malicious in malicious_txt:
         for file in files_txt:
@@ -143,7 +155,6 @@ def main():
                 print(
                     f"startPosition: {occurrence}, endPosition: {occurrence + len(malicious_code)} (for {file} file) ")
             print("\n")
-
 
 if __name__ == '__main__':
     main()
